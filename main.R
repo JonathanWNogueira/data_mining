@@ -1,16 +1,16 @@
 library(jsonlite)
 library(arules)
+library(knitr)
 
 normalizar_produtos <- function(produtos) {
-  produtos_normalizados <- gsub("Refri .*", "Refri", produtos)
-  produtos_normalizados <- gsub("Café .*", "Café", produtos_normalizados)
-  produtos_normalizados <- gsub("Presunto .*", "Presunto", produtos_normalizados)
-  produtos_normalizados <- gsub("Queijo .*", "Queijo", produtos_normalizados)
-  produtos_normalizados <- gsub("Pão .*", "Pão", produtos_normalizados)
-  produtos_normalizados <- gsub("Pastel .*", "Pastel", produtos_normalizados)
-  produtos_normalizados <- gsub("Doce .*", "Doce", produtos_normalizados)
+  padroes <- c("Refri .*", "Café .*", "Presunto .*", "Queijo .*", "Pão .*", "Pastel .*", "Doce .*")
+  substituicoes <- c("Refri", "Café", "Presunto", "Queijo", "Pão", "Pastel", "Doce")
+
+  for (i in seq_along(padroes)) {
+    produtos <- gsub(padroes[i], substituicoes[i], produtos)
+  }
   
-  return(produtos_normalizados)
+  return(produtos)
 }
 
 processar_dados_padaria <- function(arquivo_json) {
@@ -24,8 +24,12 @@ processar_dados_padaria <- function(arquivo_json) {
 }
 
 arquivo_json <- "padaria_trab.json"
+
 transacoes_normalizadas <- processar_dados_padaria(arquivo_json)
 
-regras <- apriori(transacoes_normalizadas, parameter = list(supp = 0.1, conf = 0.2))
+regras <- apriori(transacoes_normalizadas, parameter = list(supp = 0.04, conf = 0.6))
+#regras <- subset(regras, rhs %pin% "Doce" & size(lhs) > 0)
+regras <- head(sort(regras, by = "confidence"), 5)
 
-inspect(regras)
+tabela_regras <- as(regras, "data.frame")
+print(kable(tabela_regras))
