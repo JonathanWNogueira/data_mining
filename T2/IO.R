@@ -9,6 +9,11 @@ dados_combinados <- data.frame()
 for (arquivo in arquivos) {  
   
   dados <- read.xlsx(arquivo)
+
+  if ("NIVEL_CURSO" %in% colnames(dados)) {
+    dados <- dados[, !(colnames(dados) %in% "NIVEL_CURSO")]
+  }
+
   dados$Arquivo_Origem <- basename(arquivo)
   dados_combinados <- rbind(dados_combinados, dados)
 
