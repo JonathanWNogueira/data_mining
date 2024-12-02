@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Carregar o dataset
-file_path = r"C:\Users\augus\Documents\Faculdade\6º semestre\Mineração de Dados\data_mining\T2\io.xlsx"
+file_path = r"C:\Users\João Pedro\Desktop\Faculdade no PC\Semestres\2024.2\Mineração de Dados\T2\data_mining\T2\io.xlsx"
 data = pd.read_excel(file_path)
 
 data_filtered = data[data['ANO'] != 'TOTAL']

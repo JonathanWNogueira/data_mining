@@ -41,7 +41,7 @@ def situation_dist(dados_disciplinas):
     distribuicao_situacao = dados_disciplinas.groupby(['Curso', 'Situação'])['Alunos'].sum().unstack()
 
     # Plotar gráfico de barras
-    distribuicao_situacao.plot(kind='bar', stacked=True, figsize=(12, 8))
+    distribuicao_situacao.plot(kind='barh', stacked=True, figsize=(12, 8))
     plt.title('Distribuição de Alunos por Situação')
     plt.xlabel('Curso')
     plt.ylabel('Número de Alunos')
@@ -60,7 +60,7 @@ def analise_aprovacao(dados_disciplinas):
     reprovacao_por_curso = reprovados.groupby('Curso')['Alunos'].sum()
 
     # Plotar gráfico de barras
-    reprovacao_por_curso.sort_values(ascending=False).head(10).plot(kind='bar', figsize=(12, 8))
+    reprovacao_por_curso.sort_values(ascending=False).head(10).plot(kind='barh', figsize=(12, 8))
     plt.title('Disciplinas com Maior Número de Reprovação')
     plt.xlabel('Curso')
     plt.ylabel('Número de Alunos Reprovados')
@@ -76,7 +76,7 @@ def professores_dist(dados_disciplinas):
     distribuicao_professor = dados_disciplinas.groupby('Professor')['Alunos'].sum()
 
     # Plotar gráfico de barras
-    distribuicao_professor.sort_values(ascending=False).head(10).plot(kind='bar', figsize=(12, 8))
+    distribuicao_professor.sort_values(ascending=False).head(10).plot(kind='barh', figsize=(12, 8))
     plt.title('Distribuição de Alunos por Professor')
     plt.xlabel('Professor')
     plt.ylabel('Número de Alunos')
