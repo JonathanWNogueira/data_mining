@@ -159,22 +159,6 @@ plt.tight_layout()
 plt.show()
 
 
-taxa_area_ano = data_filtered.groupby(['ANO', 'AREA_CONHECIMENTO'])['TAXA_CONCLUSAO'].mean().reset_index()
-
-plt.figure(figsize=(12, 6))
-for area in taxa_area_ano['AREA_CONHECIMENTO'].unique():
-    subset = taxa_area_ano[taxa_area_ano['AREA_CONHECIMENTO'] == area]
-    plt.plot(subset['ANO'], subset['TAXA_CONCLUSAO'], label=area)
-
-plt.title('Taxa de Conclusão por Área do Conhecimento ao Longo dos Anos')
-plt.xlabel('Ano')
-plt.ylabel('Taxa de Conclusão Média')
-plt.legend(title='Área do Conhecimento')
-plt.grid(True)
-plt.show()
-
-
-
 top_taxa_genero = data_filtered.groupby(['NOME_UNIDADE', 'SEXO'])['TAXA_CONCLUSAO'].mean().reset_index()
 top_taxa_genero = top_taxa_genero.sort_values('TAXA_CONCLUSAO', ascending=False).head(10)
 
@@ -184,7 +168,6 @@ plt.title('Top 10 Cursos com Maior Taxa de Conclusão por Gênero')
 plt.xlabel('Taxa de Conclusão Média')
 plt.gca().invert_yaxis()
 plt.show()
-
 
 
 
