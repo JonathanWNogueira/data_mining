@@ -1,6 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
 
 # Configurações gerais
 sns.set_theme(style="whitegrid")
@@ -44,6 +46,62 @@ if 'AREA_CONHECIMENTO' not in data_filtered.columns:
                   'Comunicação e Linguagem' if any(term in x for term in ['Comunicação', 'Jornalismo', 'Publicidade', 'Letras', 'Tradução']) else
                   'Outros'
     )
+
+
+
+
+
+
+
+
+
+# Calcular métricas médias por área de conhecimento
+metricas_area = data_filtered.groupby('AREA_CONHECIMENTO').agg({
+    'TAXA_CONCLUSAO': 'mean',
+    'INGRESSANTES': 'sum'
+}).reset_index()
+
+# Normalizar os dados para K-Means
+scaler = StandardScaler()
+metricas_normalizadas = scaler.fit_transform(metricas_area[['TAXA_CONCLUSAO', 'INGRESSANTES']])
+
+# Aplicar K-Means com 3 clusters (ajustável)
+kmeans = KMeans(n_clusters=3, random_state=42)
+metricas_area['Cluster'] = kmeans.fit_predict(metricas_normalizadas)
+
+# Visualizar os clusters
+print("\nClusters das Áreas de Conhecimento:")
+print(metricas_area)
+
+# **Gráfico: Clusters das Áreas de Conhecimento**
+plt.figure(figsize=(10, 6))
+sns.scatterplot(
+    data=metricas_area,
+    x='TAXA_CONCLUSAO',
+    y='INGRESSANTES',
+    hue='Cluster',
+    palette='viridis',
+    s=100
+)
+
+
+# Personalizar a legenda com os rótulos de cada cluster
+cluster_labels = {
+    0: 'Cluster 0: Outros',
+    1: 'Cluster 1: Ciências Biológicas',
+    2: 'Cluster 2: Ciências Exatas, Humanas e Sociais'
+}
+
+# Adicionar a legenda com as descrições personalizadas
+handles, labels = plt.gca().get_legend_handles_labels()
+labels = [cluster_labels.get(int(label), label) for label in labels]
+plt.legend(handles, labels, title='Cluster', loc='upper right')  # Ajustando a posição se necessário
+
+plt.title('Clusters das Áreas de Conhecimento')
+plt.xlabel('Taxa de Conclusão Média')
+plt.ylabel('Número Total de Ingressantes')
+plt.grid(True)
+plt.show()
 
 
 # **Análise: Taxa de Gênero por Área do Conhecimento**

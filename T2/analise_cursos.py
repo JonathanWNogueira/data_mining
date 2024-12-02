@@ -110,6 +110,14 @@ def situation_kmeans(dados_disciplinas, nomes_cursos):
     kmeans = KMeans(n_clusters=6, random_state=19)
     situacoes_normalizadas_df["Cluster"] = kmeans.fit_predict(taxa_normalizada)
 
+
+    # Visualizar os clusters
+    cluster_analysis = situacoes_normalizadas_df.groupby('Cluster').mean()
+    print(cluster_analysis)
+    print(situacoes_normalizadas_df[["Taxa_Aprovacao", "Cluster"]])
+
+
+
     # Ordenar os resultados por taxa de aprovação
     situacoes_normalizadas_df = situacoes_normalizadas_df.sort_values(by="Taxa_Aprovacao", ascending=False)
 
@@ -119,6 +127,7 @@ def situation_kmeans(dados_disciplinas, nomes_cursos):
     # Mapeando o nome dos cursos (coluna 'nome_unidade') com base no 'Cod_Curso'
     situacoes_normalizadas_df['NOME_UNIDADE'] = situacoes_normalizadas_df['Cod_Curso'].map(nomes_cursos)
     situacoes_normalizadas_df['NOME_UNIDADE'] = situacoes_normalizadas_df['NOME_UNIDADE'].fillna(situacoes_normalizadas_df['Cod_Curso'])
+
 
     # Preparar os dados para o gráfico
     x_labels = situacoes_normalizadas_df['NOME_UNIDADE']  # Usar o nome do curso
@@ -288,10 +297,6 @@ def professores_dist_taxa_reprovacao(dados_disciplinas):
     plt.show()
 
 
-
-
-
-
 def get_nome_cursos(dados_cursos):
 
     nome_cursos = dados_cursos.set_index('Cod_Curso')['NOME_UNIDADE'].to_dict()
@@ -326,5 +331,33 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
