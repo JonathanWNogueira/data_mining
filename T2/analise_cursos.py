@@ -43,26 +43,13 @@ def situation_dist(dados_disciplinas):
     plt.xlabel('Curso')
     plt.ylabel('Número de Alunos')
     plt.xticks(rotation=90)
+
+    plt.savefig('situation_dist.png')
+
     plt.show()
 
 
-# def analise_aprovacao(dados_disciplinas):
-#     """
-#     Função que analisa a quantidade de reprovação por curso.
-#     """
-#     # Filtrar para as situações de reprovação
-#     reprovados = dados_disciplinas[dados_disciplinas['Situação'] == 'Reprovado']
 
-#     # Agrupar por curso e contar o número de alunos reprovados
-#     reprovacao_por_curso = reprovados.groupby('Curso')['Alunos'].sum()
-
-#     # Plotar gráfico de barras
-#     reprovacao_por_curso.sort_values(ascending=False).head(10).plot(kind='bar', figsize=(12, 8))
-#     plt.title('Disciplinas com Maior Número de Reprovação')
-#     plt.xlabel('Curso')
-#     plt.ylabel('Número de Alunos Reprovados')
-#     plt.xticks(rotation=90)
-#     plt.show()
 
 
 def professores_dist(dados_disciplinas):
@@ -78,6 +65,9 @@ def professores_dist(dados_disciplinas):
     plt.xlabel('Professor')
     plt.ylabel('Número de Alunos')
     plt.xticks(rotation=90)
+
+    plt.savefig('profs_dist.png')
+
     plt.show()
 
 
@@ -165,6 +155,11 @@ def situation_kmeans(dados_disciplinas, nomes_cursos):
     plt.colorbar(scatter, label="Clusters")
     plt.grid(axis="y", linestyle="--", alpha=0.7)
 
+    
+    
+    
+    plt.savefig('situation_kmeans.png')
+    
     # Exibir o gráfico
     plt.tight_layout()
     plt.show()
@@ -217,6 +212,9 @@ def analise_aprovacao(dados_disciplinas):
     plt.title('Clusters Baseados em Taxas de Aprovação e Reprovação')
     plt.xlabel('Taxa de Aprovação')
     plt.ylabel('Taxa de Reprovação')
+    
+    plt.savefig('analise_aprovacao.png')
+    
     plt.show()
 
 
@@ -261,6 +259,9 @@ def professores_dist_taxa_reprovacao(dados_disciplinas):
     plt.xlabel('Número de Alunos')
     plt.ylabel('Professor')
     plt.xticks(rotation=90)
+    
+    plt.savefig('dist_profs.png')
+    
     plt.show()
 
     # Gráfico: Clusters baseados na taxa de reprovação por professor
@@ -280,6 +281,10 @@ def professores_dist_taxa_reprovacao(dados_disciplinas):
     plt.xlabel('Professor')
     plt.ylabel('Taxa de Reprovação')
     plt.xticks(rotation=90)
+
+    
+    plt.savefig('clusters_taxa_reprovacao.png')
+
     plt.show()
 
 
