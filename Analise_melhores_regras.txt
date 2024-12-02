@@ -1,0 +1,29 @@
+Regras com maior confiança:
+Engenharia Química - A292200218320 → Reprovado (Confiança: 0.6667):
+
+A alta confiança aqui sugere que, para os alunos desse curso específico,
+ há uma probabilidade considerável de reprovação. 
+
+Isso pode ser usado para investigar se há fatores específicos dentro desse curso que influenciam
+ a taxa de reprovação, como dificuldade, currículo ou carga de trabalho.
+
+Curso de Engenharia Aeroespacial - A292200218320 → Aprovado (Confiança: 0.6667):
+
+Curiosamente, um outro curso, com o mesmo professor, mas com uma confiança alta para aprovação.
+Isso poderia indicar que os alunos desse curso têm uma boa taxa de aprovação,
+ o que pode ser interessante para destacar pontos positivos sobre o curso, como boa orientação ou preparação.
+Além disso, por ser com o mesmo professor, poderia ser analisada a possibilidade de que este professor
+favorece alunos do curso de Engenharia Aeroespacial, e desfavorece os alunos de Engenharia Química. 
+Entretanto, não podemos afirmar isso apenas com estes dados analisados, visto que somente a taxa de 
+reprovação e aprovação deste professor com os alunos dos cursos não prova isso. Além disso, não são numerosos
+o suficiente os casos analisados. Embora o suporte seja baixo, essas duas regras ainda são bastante
+interessantes e permitem a criação de hipóteses que podem ser investigadas.
+
+Engenharia Química - P380148200 → Reprovado (Confiança: 0.6667):
+
+Similar à primeira, isso reforça a ideia de que alunos do curso de Engenharia Química
+ enfrentam uma taxa de reprovação considerável, o que pode exigir atenção para melhorar
+ o desempenho dos alunos nesse curso. 
+
+Essas três regras apresentadas foram as que apresentaram maior confiança, e nos fornecem
+algumas informações inegavelmente interessantes.
