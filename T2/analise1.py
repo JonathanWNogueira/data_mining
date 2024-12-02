@@ -5,20 +5,31 @@ import matplotlib.pyplot as plt
 file_path = r"C:\Users\augus\Documents\Faculdade\6º semestre\Mineração de Dados\data_mining\T2\io.xlsx"
 data = pd.read_excel(file_path)
 
-# Remover as linhas com "TOTAL" no ano
 data_filtered = data[data['ANO'] != 'TOTAL']
 
 # Converter a coluna 'ANO' para numérico
 data_filtered['ANO'] = pd.to_numeric(data_filtered['ANO'])
 
-# Substituir ingressantes zero por NaN (ou um valor pequeno como 1)
 data_filtered['INGRESSANTES'].replace(0, pd.NA, inplace=True)
 
 # Remover linhas onde ingressantes ou formados estão ausentes
 data_filtered.dropna(subset=['INGRESSANTES', 'FORMADOS'], inplace=True)
 
-# Calcular a taxa de conclusão (evitar divisões por zero)
+# Calcular a soma total de ingressantes por curso
+ingressantes_totais = data_filtered.groupby('COD_CURSO')['INGRESSANTES'].sum()
+
+# Filtrar apenas os cursos com pelo menos 100 ingressantes
+cursos_validos = ingressantes_totais[ingressantes_totais >= 100].index
+data_filtered = data_filtered[data_filtered['COD_CURSO'].isin(cursos_validos)]
+
+# Calcular a taxa de conclusão (formados/ingressantes)
 data_filtered['TAXA_CONCLUSAO'] = data_filtered['FORMADOS'] / data_filtered['INGRESSANTES']
+
+# Analisar a média da taxa de conclusão por curso e gênero
+taxa_conclusao = data_filtered.groupby(['COD_CURSO', 'NOME_UNIDADE', 'SEXO'])['TAXA_CONCLUSAO'].mean().reset_index()
+
+# Filtrar os cursos com maior taxa de conclusão
+top_cursos = taxa_conclusao.sort_values('TAXA_CONCLUSAO', ascending=False).head(10)
 
 # Filtrar cursos com pelo menos 5 registros ao longo dos anos
 valid_courses = data_filtered['COD_CURSO'].value_counts()
